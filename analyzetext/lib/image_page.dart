@@ -207,7 +207,8 @@ class _CropPageState extends State<CropPage> with SingleTickerProviderStateMixin
 
     // Response response=await dio.post(tokenUrl);
     // String accessToken =  response.data['access_token'].toString();
-    String IAM_TOKEN = "t1.9euelZqPz4uKnJyem8jNnZ3Hm5DPzO3rnpWakJmbx5OJmo7GyozMy8yOjozl8_cwKThr-e8efzdx_t3z93BXNWv57x5_N3H-._g0cU1f_fnSa3D9coHHg9xjUvJs_GMYeAgBsGpUq5VfYlOtzT1CnzD99ljPrY6DYZ330lr57UfBNNSfBLunlCw";
+    String IAM_TOKEN = 
+    "t1.9euelZqSnp2RkpqQyorNkcfNz5mTlu3rnpWakJmbx5OJmo7GyozMy8yOjozl8_dNdS1r-e8uWG9G_d3z9w0kK2v57y5Yb0b9.KA3rFBFhroN0JJstwzq-nXCbvmBzsy_2bx1No7BRRpKoPi2e8_q8SXWutVbfyF92VZZDkSMvDqKFPKrTgkv5BQ";
     Map<String, String> header = {"Authorization":"Bearer ${IAM_TOKEN}"};
 
     String ocrUrl = "https://vision.api.cloud.yandex.net/vision/v1/batchAnalyze";
@@ -229,15 +230,25 @@ class _CropPageState extends State<CropPage> with SingleTickerProviderStateMixin
     if(true){
       var list = res.data["results"];
       for(var tt in list){
-
-      
       var list2 = tt["results"];
       for(var rr in list2){
-       var array = rr["textDetection"];
-      for(var ar in array){
-        ocrContent.add(ar["words"].toString());
-       // ocrContent += ar["words"].toString()+"\n";
-        print(ar["words"].toString());
+       var textDescipt = rr["textDetection"];
+      var pages = textDescipt["pages"];
+      for(var pag in pages){
+        var block = pag["blocks"];
+      for(var block in block){
+        var lines = block["lines"];
+        for(var line in lines){
+          var words = line["words"];
+          for(var word in words){
+              // for(var ar in array){
+                ocrContent.add(word["text"].toString());
+              // ocrContent += ar["words"].toString()+"\n";
+                print(word["text"].toString());
+              // }
+        }
+      }
+      }
       }
       }
       }
@@ -247,13 +258,13 @@ class _CropPageState extends State<CropPage> with SingleTickerProviderStateMixin
     _controller!.reset();
     _controller!.stop();
 
-    // Navigator.push(
-    //     context,
-    //     new MaterialPageRoute(
-    //         builder: (context) => new ResultPage(
-    //             title: 'crop',
-    //             ocrContent: ocrContent,
-    //             image: frame.image)));
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => new ResultPage(
+                title: 'crop',
+                ocrContent: ocrContent,
+                image: frame.image)));
   }
 
 

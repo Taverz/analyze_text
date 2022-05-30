@@ -19,10 +19,10 @@ CameraDescription? camera;
 typedef onAvialable = Function(CameraImage image);
 Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
- Map<Permission, PermissionStatus> statuses = await [
-  Permission.camera,
-].request();
-   print(statuses .toString());
+//  Map<Permission, PermissionStatus> statuses = await [
+//   Permission.camera,
+// ].request();
+  //  print(statuses .toString());
   cameras = await availableCameras();
   // camera = cameras![0];
   camera =  cameras!.first;

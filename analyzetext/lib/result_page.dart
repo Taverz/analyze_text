@@ -51,7 +51,7 @@ class ResultState extends State<ResultPage> {
               child: new SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 reverse: true,
-                child: new Text(widget.ocrContent.join("/n").toString()),
+                child: new Text(widget.ocrContent.join("\n").toString()),
               ),
             ),
           )
